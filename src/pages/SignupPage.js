@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function SignupPage() {
@@ -76,7 +76,7 @@ function SignupPage() {
           </form>
 
           <p style={{ textAlign: 'center', color: '#667' }}>
-            Already have an account? <a href="/login" style={{ color: '#2563eb' }}>Login</a>
+            Already have an account? <Link to="/login" style={{ color: '#2563eb' }}>Login</Link>
           </p>
         </div>
       </div>
