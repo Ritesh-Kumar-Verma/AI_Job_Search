@@ -16,9 +16,7 @@ function ResumeUpload() {
     try {
       const res = await resumeAPI.get();
       setUploadedResume(res.data);
-    } catch (err) {
-    
-    }
+    } catch (err) {}
   };
 
   const handleFileChange = (e) => {
@@ -56,21 +54,21 @@ function ResumeUpload() {
   };
 
   return (
-    <div className="container">
-      <div className="card" style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h1 style={{ marginBottom: '1.5rem', color: '#2563eb' }}>Upload Your Resume</h1>
+    <div className="container mx-auto">
+      <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
+        <h1 className="mb-6 text-blue-600 text-2xl font-semibold">Upload Your Resume</h1>
 
-        <p style={{ color: '#667', marginBottom: '2rem' }}>
+        <p className="text-gray-500 mb-8">
           Upload a PDF or text file. We'll extract skills and match you with relevant jobs.
         </p>
 
         {uploadedResume && (
-          <div style={{ backgroundColor: '#d1fae5', padding: '1rem', borderRadius: '0.5rem', marginBottom: '2rem' }}>
-            <p style={{ color: '#065f46', marginBottom: '0.5rem' }}>
+          <div className="bg-green-100 p-4 rounded mb-8">
+            <p className="text-green-800 mb-2">
               ✓ Current Resume: <strong>{uploadedResume.fileName}</strong>
             </p>
             {uploadedResume.skills && uploadedResume.skills.length > 0 && (
-              <p style={{ color: '#065f46', fontSize: '0.875rem' }}>
+              <p className="text-green-800 text-sm">
                 Skills detected: {uploadedResume.skills.join(', ')}
               </p>
             )}
@@ -78,25 +76,28 @@ function ResumeUpload() {
         )}
 
         <form onSubmit={handleUpload}>
-          <div className="form-group">
-            <label htmlFor="resume">Select Resume File</label>
+          <div className="mb-4">
+            <label htmlFor="resume" className="block mb-2 font-medium">
+              Select Resume File
+            </label>
             <input
               id="resume"
               type="file"
               accept=".pdf,.txt"
               onChange={handleFileChange}
-              style={{ padding: '1rem', border: '2px dashed #2563eb', borderRadius: '0.5rem' }}
+              className="w-full p-4 border-2 border-dashed border-blue-600 rounded"
             />
-            {resume && <p style={{ marginTop: '0.5rem', color: '#667', fontSize: '0.875rem' }}>Selected: {resume.name}</p>}
+            {resume && (
+              <p className="mt-2 text-gray-500 text-sm">Selected: {resume.name}</p>
+            )}
           </div>
 
-          {error && <div style={{ color: 'red', marginBottom: '1rem', fontSize: '0.875rem' }}>{error}</div>}
-          {message && <div style={{ color: 'green', marginBottom: '1rem', fontSize: '0.875rem' }}>{message}</div>}
+          {error && <div className="text-red-500 mb-4 text-sm">{error}</div>}
+          {message && <div className="text-green-500 mb-4 text-sm">{message}</div>}
 
           <button
             type="submit"
-            className="btn btn-primary"
-            style={{ width: '100%' }}
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded disabled:opacity-50"
             disabled={!resume || loading}
           >
             {loading ? 'Uploading...' : 'Upload Resume'}

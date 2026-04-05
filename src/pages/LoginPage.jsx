@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
+import {assets} from "../assets/assets"
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,48 +26,53 @@ function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
-      <div style={{ width: '100%', maxWidth: '400px', padding: '2rem' }}>
-        <div className="card">
-          <h1 style={{ marginBottom: '2rem', textAlign: 'center', color: '#2563eb' }}>Job Tracker</h1>
+    <div className="min-h-screen flex items-center justify-center  bg-cover bg-center " style={{backgroundImage : `url(${assets.aiWithHuman})`}} >
+      
+      
+      <div className="w-full max-w-md p-8">
+        <div className="card border-4 rounded-xl bg-white/20 backdrop-blur-md border-white/30 shadow-lg p-6">
+          <h1 className="mb-8 text-center text-blue-600 text-2xl font-bold">Job Tracker</h1>
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Email</label>
+            <div className="form-group mb-4">
+              <label className="block mb-1">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="w-full border border-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
 
-            <div className="form-group">
-              <label>Password</label>
+            <div className="form-group mb-4">
+              <label className="block mb-1">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="w-full border border-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
 
-            {error && <div style={{ color: 'red', marginBottom: '1rem', fontSize: '0.875rem' }}>{error}</div>}
+            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
             <button
               type="submit"
-              className="btn btn-primary"
-              style={{ width: '100%', marginBottom: '1rem' }}
+              className="w-full bg-blue-600 text-white py-2 rounded-md mb-4 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
 
-          <p style={{ textAlign: 'center', color: '#667' }}>
-            Don't have an account? <Link to='/signup' style={{ color: '#2563eb' }}>Sign up</Link>
+          <p className="text-center text-gray-600">
+            Don't have an account?{' '}
+            <Link to='/signup' className="text-blue-600">
+              Sign up
+            </Link>
           </p>
-          
         </div>
       </div>
     </div>

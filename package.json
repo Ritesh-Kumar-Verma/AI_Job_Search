@@ -3,21 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "@vitejs/plugin-react": "^6.0.1",
     "axios": "^1.5.0",
     "hashrouter": "^1.1.1",
     "link": "^2.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "react-scripts": "5.0.1"
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.3"
   },
   "homepage": "https://Ritesh-Kumar-Verma.github.io/AI_Job_Search-frontend",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev": "npm start",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
