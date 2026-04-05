@@ -172,7 +172,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 h-screen" style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
       <h1 className="text-2xl font-bold text-blue-600 mb-8">🔍 Job Feed</h1>
 
       {/* Pending Application Modal */}

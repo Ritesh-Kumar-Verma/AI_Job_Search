@@ -60,14 +60,14 @@ function Applications() {
     const currentIndex = statusOptions.findIndex(s => s.value === app.status);
 
     return (
-      <div className="flex items-center gap-2 py-4">
+      <div className="flex items-center gap-2 py-4" >
         {timeline.map((step, index) => {
           const isActive = index <= currentIndex && app.status !== 'rejected';
           const isRejected = app.status === 'rejected';
 
           return (
             <React.Fragment key={step.status}>
-              <div className="flex flex-col items-center min-w-[80px]">
+              <div className="flex flex-col items-center min-w-[80px]" >
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center font-semibold text-[0.8rem] ${
                   isRejected && index > 0 ? 'bg-red-100 text-red-700' : isActive ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-400'
                 }`}>
@@ -93,7 +93,7 @@ function Applications() {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4" style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
       <h1 className="mb-8 text-blue-600 text-2xl font-bold">📋 My Applications</h1>
 
       {loading ? (
@@ -122,7 +122,7 @@ function Applications() {
           </div>
 
           {/* Applications List */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 " >
             {applications.map(app => (
               <div key={app._id} className="card p-6">
                 <div className="flex justify-between items-start mb-4">

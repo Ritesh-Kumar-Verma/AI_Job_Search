@@ -25,15 +25,10 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
     scrollToBottom();
   }, [messages]);
 
-  // Format message content with markdown-like styling
   const formatMessage = (content) => {
     if (!content) return '';
-
-    // Split by lines and process
     return content.split('\n').map((line, i) => {
-      // Bold text between **
       let formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
       return (
         <span key={i}>
           <span dangerouslySetInnerHTML={{ __html: formatted }} />
@@ -47,7 +42,6 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Add user message
     const userMessage = {
       id: messages.length + 1,
       role: 'user',
@@ -58,7 +52,6 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
     setLoading(true);
 
     try {
-      // Call AI API
       const res = await aiAPI.chat(
         messages.map(m => ({ role: m.role, content: m.content })).concat(userMessage)
       );
@@ -112,124 +105,46 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        style={{
-          position: 'fixed',
-          bottom: '2rem',
-          right: '2rem',
-          width: '60px',
-          height: '60px',
-          borderRadius: '50%',
-          backgroundColor: '#2563eb',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-          fontSize: '24px',
-          boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)',
-          zIndex: 999,
-          transition: 'transform 0.2s',
-          transform: isOpen ? 'scale(1.1)' : 'scale(1)',
-        }}
+        className={`fixed bottom-8 right-8 w-15 h-15 rounded-full bg-blue-600 text-white border-none cursor-pointer text-2xl shadow-lg z-[999] transition-transform ${isOpen ? 'scale-110' : 'scale-100'}`}
         title="Chat with AI"
       >
         🤖
       </button>
 
       {isOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: '5rem',
-            right: '2rem',
-            width: '400px',
-            maxWidth: '90vw',
-            height: '500px',
-            backgroundColor: 'white',
-            borderRadius: '0.75rem',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
-            display: 'flex',
-            flexDirection: 'column',
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: '#2563eb',
-              color: 'white',
-              padding: '1rem',
-              borderTopLeftRadius: '0.75rem',
-              borderTopRightRadius: '0.75rem',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <h3 style={{ margin: 0 }}>🤖 Job Hunt Assistant</h3>
+        <div className="fixed bottom-20 right-8 w-[400px] max-w-[90vw] h-[500px] bg-white rounded-xl shadow-xl flex flex-col z-[1000]">
+          <div className="bg-blue-600 text-white p-4 rounded-t-xl flex justify-between items-center">
+            <h3 className="m-0">🤖 Job Hunt Assistant</h3>
             <button
               onClick={() => setIsOpen(false)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'white',
-                fontSize: '20px',
-                cursor: 'pointer',
-              }}
+              className="bg-none border-none text-white text-xl cursor-pointer"
             >
               ✕
             </button>
           </div>
 
           {lastFilterAction && (
-            <div style={{
-              backgroundColor: '#d1fae5',
-              color: '#065f46',
-              padding: '0.5rem 1rem',
-              fontSize: '0.8rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}>
+            <div className="bg-emerald-100 text-emerald-800 px-4 py-2 text-xs flex items-center gap-2">
               ✅ Filters updated! Check the Job Feed.
             </div>
           )}
 
-          <div
-            style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '1rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.75rem',
-            }}
-          >
+          <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
             {messages.map(msg => (
               <div
                 key={msg.id}
-                style={{
-                  display: 'flex',
-                  justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                }}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  style={{
-                    maxWidth: '85%',
-                    padding: '0.75rem',
-                    borderRadius: '0.5rem',
-                    backgroundColor: msg.role === 'user' ? '#2563eb' : '#f3f4f6',
-                    color: msg.role === 'user' ? 'white' : '#333',
-                    wordWrap: 'break-word',
-                    fontSize: '0.875rem',
-                    lineHeight: '1.5',
-                    whiteSpace: 'pre-wrap',
-                  }}
+                  className={`max-w-[85%] p-3 rounded bg-${msg.role === 'user' ? 'blue-600 text-white' : 'gray-100 text-gray-800'} break-words text-sm leading-6 whitespace-pre-wrap`}
                 >
                   {formatMessage(msg.content)}
                 </div>
               </div>
             ))}
             {loading && (
-              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <div style={{ padding: '0.75rem', color: '#999', fontSize: '0.875rem' }}>
+              <div className="flex justify-start">
+                <div className="p-3 text-gray-400 text-sm">
                   🤖 AI is thinking...
                 </div>
               </div>
@@ -237,25 +152,12 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
             <div ref={messagesEndRef} />
           </div>
 
-          <div style={{
-            display: 'flex',
-            gap: '0.5rem',
-            padding: '0.5rem 1rem',
-            borderTop: '1px solid #e5e7eb',
-            flexWrap: 'wrap'
-          }}>
+          <div className="flex gap-2 p-2.5 border-t border-gray-200 flex-wrap">
             {quickActions.map((qa, idx) => (
               <button
                 key={idx}
                 onClick={() => handleQuickAction(qa.action)}
-                style={{
-                  padding: '0.25rem 0.5rem',
-                  fontSize: '0.75rem',
-                  backgroundColor: '#e5e7eb',
-                  border: 'none',
-                  borderRadius: '1rem',
-                  cursor: 'pointer',
-                }}
+                className="px-2 py-1 text-xs bg-gray-200 border-none rounded-full cursor-pointer"
               >
                 {qa.label}
               </button>
@@ -264,39 +166,20 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
 
           <form
             onSubmit={handleSend}
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              padding: '1rem',
-              borderTop: '1px solid #e5e7eb',
-            }}
+            className="flex gap-2.5 p-4 border-t border-gray-200"
           >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me anything..."
-              style={{
-                flex: 1,
-                padding: '0.5rem',
-                border: '1px solid #e5e7eb',
-                borderRadius: '0.375rem',
-                fontSize: '0.875rem',
-              }}
+              className="flex-1 p-2 border border-gray-200 rounded text-sm"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#2563eb',
-                color: 'white',
-                border: 'none',
-                borderRadius: '0.375rem',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                opacity: loading ? 0.6 : 1,
-              }}
+              className={`px-4 py-2 bg-blue-600 text-white border-none rounded cursor-pointer ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
             >
               Send
             </button>

@@ -54,8 +54,8 @@ function ResumeUpload() {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <div className="container mx-auto " >
+      <div className="max-w-xl mx-auto h-screen bg-white p-6 rounded shadow " style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
         <h1 className="mb-6 text-blue-600 text-2xl font-semibold">Upload Your Resume</h1>
 
         <p className="text-gray-500 mb-8">
