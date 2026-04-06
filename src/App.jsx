@@ -37,7 +37,9 @@ function AppContent() {
   }, []);
 
   return (
-    <>
+    <div className='min-h-screen' style={{
+        background: `linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `,
+      }}>
       {token && <Navigation />}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -84,7 +86,7 @@ function AppContent() {
           currentFilters={currentFilters}
         />
       )}
-    </>
+    </div>
   );
 }
 

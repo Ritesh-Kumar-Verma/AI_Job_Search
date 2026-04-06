@@ -93,7 +93,7 @@ function Applications() {
   };
 
   return (
-    <div className="container mx-auto px-4" style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
+    <div className="container mx-auto px-4 " style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
       <h1 className="mb-8 text-blue-600 text-2xl font-bold">📋 My Applications</h1>
 
       {loading ? (

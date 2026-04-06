@@ -14,7 +14,7 @@ function Dashboard() {
   }, [user, navigate]);
 
   return (
-    <div className="container  px-4 h-screen min-w-full " style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
+    <div className=" px-4 h-9/10 min-w-full ">
       <div className="card text-center lg:p-12  pt-8 ">
         <h1 className="mb-4 text-[#e2e8f0] text-2xl font-bold">
           Welcome, {user?.name || user?.email}!
