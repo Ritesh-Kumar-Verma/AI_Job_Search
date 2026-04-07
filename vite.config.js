@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base : '/AI_Job_Search-frontend/',
   // server :{
   //   host :true,
   //   port : 5173
