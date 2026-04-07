@@ -32,10 +32,10 @@ function Applications() {
   };
 
   const statusOptions = [
-    { value: 'applied', label: 'Applied', icon: '📝', color: 'bg-blue-100', textColor: 'text-blue-900' },
-    { value: 'in-progress', label: 'Interview', icon: '💼', color: 'bg-yellow-100', textColor: 'text-yellow-900' },
-    { value: 'offer', label: '🎉', label: 'Offer', color: 'bg-green-100', textColor: 'text-green-900' },
-    { value: 'accepted', label: 'Accepted', icon: '✅', color: 'bg-green-100', textColor: 'text-green-900' },
+    { value: 'applied', label: 'Applied', icon: '📝', color: 'bg-blue-400', textColor: 'text-blue-300' },
+    { value: 'in-progress', label: 'Interview', icon: '💼', color: 'bg-yellow-100', textColor: 'text-yellow-500' },
+    { value: 'offer', label: '🎉', label: 'Offer', icon: '🎉', color: 'bg-green-100', textColor: 'text-green-500' },
+    { value: 'accepted', label: 'Accepted', icon: '✅', color: 'bg-green-100', textColor: 'text-green-800' },
     { value: 'rejected', label: 'Rejected', icon: '❌', color: 'bg-red-100', textColor: 'text-red-900' },
   ];
 
@@ -73,7 +73,7 @@ function Applications() {
                 }`}>
                   {isActive && !isRejected ? '✓' : index + 1}
                 </div>
-                <span className={`mt-1 text-[0.75rem] ${isActive ? 'text-gray-800' : 'text-gray-400'}`}>
+                <span className={`mt-1 text-[0.75rem] ${isActive ? 'text-gray-400' : 'text-gray-400'}`}>
                   {step.label}
                 </span>
                 {step.date && (
@@ -93,8 +93,8 @@ function Applications() {
   };
 
   return (
-    <div className="container mx-auto px-4 " style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
-      <h1 className="mb-8 text-blue-600 text-2xl font-bold">📋 My Applications</h1>
+    <div className=" mx-auto p-4 lg:p-10 " >
+      <h1 className=" text-white text-2xl font-bold">📋 My Applications</h1>
 
       {loading ? (
         <div className="text-center py-8">
@@ -115,20 +115,20 @@ function Applications() {
                 <div key={status.value} className="card text-center p-4">
                   <div className="text-2xl mb-2">{status.icon}</div>
                   <div className={`text-xl font-semibold ${status.textColor}`}>{count}</div>
-                  <div className="text-sm text-gray-500">{status.label}</div>
+                  <div className="text-sm text-gray-300">{status.label}</div>
                 </div>
               );
             })}
           </div>
 
           {/* Applications List */}
-          <div className="flex flex-col gap-4 " >
+          <div className="flex flex-col gap-4  " >
             {applications.map(app => (
-              <div key={app._id} className="card p-6">
+              <div key={app._id} className=" p-6 border-2 border-transparent hover:border-white  rounded-xl bg-[rgb(255,255,255,0.05)]  shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] backdrop-blur-lg">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="mb-1 text-blue-900">{app.jobTitle || app.jobId?.title || 'Unknown Job'}</h3>
-                    <p className="text-gray-500 mb-2">{app.company || app.jobId?.company || 'Unknown Company'}</p>
+                    <h3 className="mb-1 text-lg text-white">{app.jobTitle || app.jobId?.title || 'Unknown Job'}</h3>
+                    <p className="text-gray-400 mb-2">{app.company || app.jobId?.company || 'Unknown Company'}</p>
                     <p className="text-xs text-gray-400">
                       Applied: {new Date(app.appliedAt || app.appliedDate).toLocaleDateString()}
                     </p>
@@ -149,13 +149,13 @@ function Applications() {
                 <ApplicationTimeline app={app} />
 
                 {/* Actions */}
-                <div className="flex justify-between items-center border-t border-gray-200 pt-4 mt-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-500">Update Status:</span>
+                <div className="flex justify-between items-center border-t border-gray-200 pt-4 mt-2 gap-2 ">
+                  <div className="flex-1 flex items-center gap-2">
+                    <span className="text-sm text-white">Update Status:</span>
                     <select
                       value={app.status}
                       onChange={(e) => updateStatus(app._id, e.target.value)}
-                      className="px-2 py-1 border border-gray-200 rounded text-sm"
+                      className="px-1 py-1 border border-gray-200 rounded text-sm text-white bg-[#0a192f]"
                     >
                       {statusOptions.map(opt => (
                         <option key={opt.value} value={opt.value}>
@@ -163,13 +163,13 @@ function Applications() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                    </div>
                   {app.jobUrl && (
                     <a
-                      href={app.jobUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-secondary btn-small"
+                    href={app.jobUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className=" max-w-fit btn btn-secondary btn-small text-white border px-2  rounded"
                     >
                       View Job
                     </a>

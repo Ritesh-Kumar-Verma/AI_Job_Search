@@ -49,7 +49,7 @@ function Navigation() {
             {/* <div className="flex items-center  border-2 border-white "> */}
               <button
                 onClick={logout}
-                className="opacity-40 border-2 border-white  bg-blue-100 hover:bg-red-400 text-gray-800 px-2 py-1 rounded text-sm mb-2"
+                className=" border-2   bg-blue-100 hover:bg-red-400 text-gray-800 px-2 py-1 rounded text-sm mb-2"
               >
                 Logout
               </button>

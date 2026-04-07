@@ -191,7 +191,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
   };
 
   return (
-    <div className="px-4 py-4 ">
+    <div className="p-4 lg:p-10">
       <h1 className="text-2xl font-bold text-white mb-8">🔍 Job Feed</h1>
 
       {/* Pending Application Modal */}
@@ -495,7 +495,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
               {/* Skills */}
               {job.skills?.length > 0 && (
                 <div className="mb-2 ">
-                  <p className="font-semibold text-gray-700 text-sm mb-1">
+                  <p className="font-semibold text-gray-400 text-sm mb-1">
                     Required Skills:
                   </p>
                   <div className="flex flex-wrap gap-2">

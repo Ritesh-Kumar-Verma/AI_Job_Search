@@ -55,10 +55,10 @@ function ResumeUpload() {
 
   return (
     <div className="container mx-auto " >
-      <div className="max-w-xl mx-auto h-screen bg-white p-6 rounded shadow " style={{background:`linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `}}>
-        <h1 className="mb-6 text-blue-600 text-2xl font-semibold">Upload Your Resume</h1>
+      <div className="max-w-xl mx-auto h-screen p-6 rounded shadow ">
+        <h1 className="mb-6 text-white text-2xl font-semibold">Upload Your Resume</h1>
 
-        <p className="text-gray-500 mb-8">
+        <p className="text-gray-400 mb-8">
           Upload a PDF or text file. We'll extract skills and match you with relevant jobs.
         </p>
 
@@ -77,7 +77,7 @@ function ResumeUpload() {
 
         <form onSubmit={handleUpload}>
           <div className="mb-4">
-            <label htmlFor="resume" className="block mb-2 font-medium">
+            <label htmlFor="resume" className="block text-white mb-2 font-medium">
               Select Resume File
             </label>
             <input
@@ -85,10 +85,10 @@ function ResumeUpload() {
               type="file"
               accept=".pdf,.txt"
               onChange={handleFileChange}
-              className="w-full p-4 border-2 border-dashed border-blue-600 rounded"
+              className="w-full p-4 border-2 border-dashed border-blue-600 text-gray-400 rounded"
             />
             {resume && (
-              <p className="mt-2 text-gray-500 text-sm">Selected: {resume.name}</p>
+              <p className="mt-2 text-gray-400 text-sm">Selected: {resume.name}</p>
             )}
           </div>
 
