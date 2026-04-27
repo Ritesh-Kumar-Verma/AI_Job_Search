@@ -18,6 +18,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
   });
   const [suggestedFilters, setSuggestedFilters] = useState(null);
   const [pendingApplication, setPendingApplication] = useState(null);
+  
 
   useEffect(() => {
     if (externalFilters) {
@@ -73,20 +74,22 @@ function JobFeed({ externalFilters, onFiltersChange }) {
     loadFilterOptions();
   }, []);
 
+  //needed for skills sections
   const loadFilterOptions = async () => {
-    try {
-      const res = await jobsAPI.getFilterOptions();
-      setFilterOptions(res.data);
-    } catch (err) {
-      console.error("Error loading filter options:", err);
-    }
+    // try {
+    //   const res = await jobsAPI.getFilterOptions();
+    //   setFilterOptions(res.data);
+    // } catch (err) {
+    //   console.error("Error loading filter options:", err);
+    // }
   };
 
   const loadJobs = async () => {
     setLoading(true);
     try {
       const res = await jobsAPI.getFiltered(filters);
-      const allJobs = res.data.jobs || [];
+      const allJobs = res.data.results || [];
+      // console.log(allJobs)
       setJobs(allJobs);
       const topMatches = [...allJobs]
         .filter((job) => job.matchScore >= 70)
@@ -100,15 +103,19 @@ function JobFeed({ externalFilters, onFiltersChange }) {
     }
   };
 
+
+  //rewriting       const applied = new Set(res.data.applications.map((app) => app.jobId));
   const loadApplications = async () => {
     try {
       const res = await applicationsAPI.getAll();
-      const applied = new Set(res.data.applications.map((app) => app.jobId));
+      const applied = new Set(res.data.map((app) => String(app.jobId)));
       setAppliedJobs(applied);
     } catch (err) {
       console.error("Error loading applications:", err);
     }
   };
+
+  
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -117,6 +124,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
   };
 
   const handleApply = (job) => {
+    // console.log(job)
     const jobUrl = job.url || job.redirectUrl || "#";
     window.open(jobUrl, "_blank");
     setPendingApplication(job);
@@ -124,17 +132,20 @@ function JobFeed({ externalFilters, onFiltersChange }) {
 
   const confirmApplication = async (response) => {
     if (!pendingApplication) return;
+    // console.log("pending=>" , pendingApplication)
     const jobId = pendingApplication._id || pendingApplication.externalId;
 
     if (response === "yes" || response === "already") {
+      
       try {
-        await applicationsAPI.apply(jobId, {
+        await applicationsAPI.apply({
+          jobId :  pendingApplication.jobId,
           title: pendingApplication.title,
           company: pendingApplication.company,
           url: pendingApplication.url || pendingApplication.redirectUrl,
           matchScore: pendingApplication.matchScore,
         });
-        setAppliedJobs((prev) => new Set([...prev, jobId]));
+        setAppliedJobs((prev) => new Set([...prev, String(pendingApplication.jobId)]));
       } catch (err) {
         if (!err.response?.data?.message?.includes("Already applied"))
           console.error("Error applying:", err);
@@ -245,6 +256,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
               ({bestMatches.length} high-scoring jobs)
             </span>
           </h2>
+
           <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] mb-4">
             {bestMatches.map((job) => (
               <div
@@ -253,7 +265,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="font-medium text-base">{job.title}</div>
+                    <div className="font-medium text-base">{job.title} </div>
                     <div className="text-gray-700">{job.company}</div>
                   </div>
                   {getScoreBadge(job.matchScore)}
@@ -282,6 +294,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
               </div>
             ))}
           </div>
+          
         </div>
       )}
 
@@ -395,7 +408,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
         </div>
 
         {/* Skills */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block font-semibold mb-2  text-xl text-white">
             💡 Skills
           </label>
@@ -427,7 +440,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
               Selected: {filters.skills.join(", ")}
             </p>
           )}
-        </div>
+        </div> */}
 
         {/* Filter Buttons */}
         <div className="flex gap-2">
@@ -456,14 +469,15 @@ function JobFeed({ externalFilters, onFiltersChange }) {
         </div>
       ) : (
         <div className="space-y-4">
-          {jobs.map((job) => (
+          {jobs.map((job,index) => (
             <div
-              key={job._id || job.externalId}
-              className=" p-4 border-2 hover:border-blue-400  rounded-xl bg-[rgb(255,255,255,0.05)]  shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] backdrop-blur-lg"
+              // key={job._id || job.externalId}
+              key={index}
+              className=" p-4 border-2 text-gray-500 hover:border-blue-400  rounded-xl bg-[rgb(255,255,255,0.05)]  shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] backdrop-blur-lg"
             >
               <div className="flex justify-between items-start mb-2 ">
                 <div className="flex-1">
-                  <div className="font-medium text-lg text-white">{job.title}</div>
+                  <div className="font-medium text-lg text-white">{job.title} </div>
                   <div className="text-gray-300">{job.company}</div>
                   <div className="text-gray-300">📍 {job.location}</div>
                   <div className="text-gray-300 text-sm mt-1">
@@ -473,7 +487,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
                 {job.matchScore !== undefined && getScoreBadge(job.matchScore)}
               </div>
 
-              {/* Job Meta */}
+              Job Meta
               <div className="flex gap-2 flex-wrap mb-2">
                 {job.jobType && (
                   <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full text-sm">
@@ -519,14 +533,14 @@ function JobFeed({ externalFilters, onFiltersChange }) {
               <div className="flex lg:w-2/5 gap-2 max-w-80  mt-4">
                 <button
                   onClick={() => handleApply(job)}
-                  disabled={appliedJobs.has(job._id || job.externalId)}
+                  disabled={appliedJobs.has(job.jobId || job.externalId)}
                   className={`flex-1 flex justify-center py-2 rounded text-white ${
-                    appliedJobs.has(job._id || job.externalId)
+                    appliedJobs.has(String(job.jobId) || job.externalId)
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700"
                   }`}
                 >
-                  {appliedJobs.has(job._id || job.externalId)
+                  {appliedJobs.has(job.jobId || job.externalId)
                     ? "✅ Applied"
                     : " Apply"}
                 </button>
@@ -539,6 +553,9 @@ function JobFeed({ externalFilters, onFiltersChange }) {
                   🌐 View on Site
                 </a>
               </div>
+
+
+              
             </div>
           ))}
         </div>

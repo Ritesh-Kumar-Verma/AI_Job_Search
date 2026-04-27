@@ -14,7 +14,8 @@ function Applications() {
     setLoading(true);
     try {
       const res = await applicationsAPI.getAll();
-      setApplications(res.data.applications || []);
+      console.log(res.data)      
+      setApplications(res.data || []);
     } catch (err) {
       console.error('Error loading applications:', err);
     } finally {
@@ -22,9 +23,10 @@ function Applications() {
     }
   };
 
-  const updateStatus = async (applicationId, newStatus) => {
+  const updateStatus = async (jobId, newStatus) => {
     try {
-      await applicationsAPI.updateStatus(applicationId, newStatus);
+      console.log(typeof jobId)
+      await applicationsAPI.updateStatus(jobId, newStatus);
       loadApplications();
     } catch (err) {
       alert('Error updating status');
@@ -33,8 +35,8 @@ function Applications() {
 
   const statusOptions = [
     { value: 'applied', label: 'Applied', icon: '📝', color: 'bg-blue-400', textColor: 'text-blue-300' },
-    { value: 'in-progress', label: 'Interview', icon: '💼', color: 'bg-yellow-100', textColor: 'text-yellow-500' },
-    { value: 'offer', label: '🎉', label: 'Offer', icon: '🎉', color: 'bg-green-100', textColor: 'text-green-500' },
+    { value: 'interview', label: 'Interview', icon: '💼', color: 'bg-yellow-100', textColor: 'text-yellow-500' },
+    { value: 'offer', label: 'Offer', icon: '🎉', color: 'bg-green-100', textColor: 'text-green-500' },
     { value: 'accepted', label: 'Accepted', icon: '✅', color: 'bg-green-100', textColor: 'text-green-800' },
     { value: 'rejected', label: 'Rejected', icon: '❌', color: 'bg-red-100', textColor: 'text-red-900' },
   ];
@@ -92,6 +94,8 @@ function Applications() {
     );
   };
 
+
+
   return (
     <div className=" mx-auto p-4 lg:p-10 " >
       <h1 className=" text-white text-2xl font-bold">📋 My Applications</h1>
@@ -124,14 +128,22 @@ function Applications() {
           {/* Applications List */}
           <div className="flex flex-col gap-4  " >
             {applications.map(app => (
-              <div key={app._id} className=" p-6 border-2 border-transparent hover:border-white  rounded-xl bg-[rgb(255,255,255,0.05)]  shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] backdrop-blur-lg">
+              
+              <div key={app.jobId} className=" p-6 border-2 border-transparent hover:border-white  rounded-xl bg-[rgb(255,255,255,0.05)]  shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] backdrop-blur-lg">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="mb-1 text-lg text-white">{app.jobTitle || app.jobId?.title || 'Unknown Job'}</h3>
-                    <p className="text-gray-400 mb-2">{app.company || app.jobId?.company || 'Unknown Company'}</p>
-                    <p className="text-xs text-gray-400">
+                    <h3 className="mb-1 text-lg text-white">{app.title || 'Unknown Job'}</h3>
+                    <p className="text-gray-400 mb-2">{app.company ||  'Unknown Company'}</p>
+                      
+                      
+                      
+                      {/* to be added later */}
+                    {/* <p className="text-xs text-gray-400">
                       Applied: {new Date(app.appliedAt || app.appliedDate).toLocaleDateString()}
-                    </p>
+                    </p> */}
+
+
+                    
                   </div>
                   <div className="flex items-center gap-4">
                     {app.matchScore && (
@@ -154,7 +166,7 @@ function Applications() {
                     <span className="text-sm text-white">Update Status:</span>
                     <select
                       value={app.status}
-                      onChange={(e) => updateStatus(app._id, e.target.value)}
+                      onChange={(e) => updateStatus(app.jobId, e.target.value)}
                       className="px-1 py-1 border border-gray-200 rounded text-sm text-white bg-[#0a192f]"
                     >
                       {statusOptions.map(opt => (
@@ -164,9 +176,9 @@ function Applications() {
                       ))}
                     </select>
                     </div>
-                  {app.jobUrl && (
+                  {app.url && (
                     <a
-                    href={app.jobUrl}
+                    href={app.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className=" max-w-fit btn btn-secondary btn-small text-white border px-2  rounded"

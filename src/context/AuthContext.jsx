@@ -29,15 +29,15 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const register = async (email, password, name) => {
-    const res = await authAPI.signup(email, password, name);
+    const res = await authAPI.signup(name, password, email);
     localStorage.setItem('token', res.data.token);
     setToken(res.data.token);
     setUser(res.data.user);
     return res.data;
   };
 
-  const login = async (email, password) => {
-    const res = await authAPI.login(email, password);
+  const login = async (username, password) => {
+    const res = await authAPI.login(username, password);
     localStorage.setItem('token', res.data.token);
     setToken(res.data.token);
     setUser(res.data.user);

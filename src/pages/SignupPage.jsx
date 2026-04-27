@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { assets } from '../assets/assets';
 
 function SignupPage() {
   const [email, setEmail] = useState('');
@@ -26,9 +25,9 @@ function SignupPage() {
       setLoading(false);
     }
   };
-
+  // style={{backgroundImage : `url("${assets.aiWithHuman}")`}}
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center " style={{backgroundImage : `url("${assets.aiWithHuman}")`}} >
+    <div className="min-h-screen flex items-center justify-center  "  >
       
       <div className="w-full max-w-md p-8 ">
         <div className="p-6 bg-white/20 backdrop-blur-lg border-4 border-white/30 shadow-lg rounded-xl">

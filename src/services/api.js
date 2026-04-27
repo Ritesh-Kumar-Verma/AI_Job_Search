@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -18,10 +18,10 @@ apiClient.interceptors.request.use(
 );
 
 export const authAPI = {
-  signup: (email, password, name) =>
-    apiClient.post('/auth/signup', { email, password, name }),
-  login: (email, password) =>
-    apiClient.post('/auth/login', { email, password }),
+  signup: (username, password, email) =>
+    apiClient.post('/auth/signup', { username, password, email }),
+  login: (username, password) =>
+    apiClient.post('/auth/login', { username, password }),
   getProfile: () => apiClient.get('/auth/profile'),
 };
 
@@ -36,10 +36,11 @@ export const resumeAPI = {
   get: () => apiClient.get('/resume'),
 };
 
+
 export const jobsAPI = {
   fetch: (search, location) =>
     apiClient.post('/jobs/fetch', { search, location }),
-  getFiltered: (filters) =>
+  getFiltered: async(filters) =>
     apiClient.get('/jobs', { params: filters }),
   getJob: (jobId) =>
     apiClient.get(`/jobs/${jobId}`),
@@ -50,10 +51,12 @@ export const jobsAPI = {
 };
 
 export const applicationsAPI = {
-  apply: (jobId, jobDetails = null) => apiClient.post('/applications/apply', { jobId, jobDetails }),
-  getAll: () => apiClient.get('/applications'),
-  updateStatus: (applicationId, status) =>
-    apiClient.put(`/applications/${applicationId}/status`, { status }),
+  apply: (jobDetails ) =>
+    apiClient.post('/applications/apply', jobDetails), 
+  getAll: () => 
+    apiClient.get('/applications'),
+  updateStatus: (jobId, status) =>
+    apiClient.put(`/applications/${jobId}/status`, { status }),
 };
 
 export const aiAPI = {

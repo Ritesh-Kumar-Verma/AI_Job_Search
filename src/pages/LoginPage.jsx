@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {assets} from "../assets/assets"
 function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      await login(email, password);
+      await login(username, password);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
@@ -24,9 +24,9 @@ function LoginPage() {
       setLoading(false);
     }
   };
-
+  // style={{backgroundImage : `url(${assets.aiWithHuman})`}}
   return (
-    <div className="min-h-screen flex items-center justify-center  bg-cover bg-center " style={{backgroundImage : `url(${assets.aiWithHuman})`}} >
+    <div className="min-h-screen flex items-center justify-center  bg-cover bg-center "  >
       
       
       <div className="w-full max-w-md p-8">
@@ -35,11 +35,11 @@ function LoginPage() {
 
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-4">
-              <label className="block mb-1">Email</label>
+              <label className="block mb-1">Username</label>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 className="w-full border border-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
