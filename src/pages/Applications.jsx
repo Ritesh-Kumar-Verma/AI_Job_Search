@@ -14,7 +14,7 @@ function Applications() {
     setLoading(true);
     try {
       const res = await applicationsAPI.getAll();
-      console.log(res.data)      
+      // console.log(res.data)      
       setApplications(res.data || []);
     } catch (err) {
       console.error('Error loading applications:', err);

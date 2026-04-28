@@ -40,8 +40,12 @@ export const resumeAPI = {
 export const jobsAPI = {
   fetch: (search, location) =>
     apiClient.post('/jobs/fetch', { search, location }),
-  getFiltered: async(filters) =>
-    apiClient.get('/jobs', { params: filters }),
+  getFiltered: async (filters) =>{
+
+    const res = await apiClient.get('/jobs', { params: filters })
+    console.log(res)
+    return res
+  },
   getJob: (jobId) =>
     apiClient.get(`/jobs/${jobId}`),
   getFilterOptions: () =>

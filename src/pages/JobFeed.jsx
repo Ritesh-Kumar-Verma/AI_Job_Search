@@ -260,7 +260,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
           <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] mb-4">
             {bestMatches.map((job) => (
               <div
-                key={`best-${job._id || job.externalId}`}
+                key={`best-${job.jobId || job.externalId}`}
                 className="bg-green-50 border-l-4 border-green-500 p-4 rounded shadow"
               >
                 <div className="flex justify-between items-start">
@@ -279,14 +279,14 @@ function JobFeed({ externalFilters, onFiltersChange }) {
                 <div className="flex gap-2 mt-4">
                   <button
                     onClick={() => handleApply(job)}
-                    disabled={appliedJobs.has(job._id || job.externalId)}
+                    disabled={appliedJobs.has(job.jobId || job.externalId)}
                     className={`flex-1 py-2 rounded text-white ${
-                      appliedJobs.has(job._id || job.externalId)
+                      appliedJobs.has(job.jobId || job.externalId)
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-blue-600 hover:bg-blue-700"
                     }`}
                   >
-                    {appliedJobs.has(job._id || job.externalId)
+                    {appliedJobs.has(job.jobId || job.externalId)
                       ? "✅ Applied"
                       : "✨ Apply"}
                   </button>
