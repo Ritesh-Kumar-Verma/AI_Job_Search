@@ -112,7 +112,15 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-20 right-8 w-[400px] max-w-[90vw] h-[500px] bg-white rounded-xl shadow-xl flex flex-col z-[1000]">
+
+        <div className="fixed bottom-20 right-8  bg-white rounded-xl shadow-xl flex flex-col z-[1000] text-white "
+        // w-[400px] max-w-[90vw] h-[500px]
+        style={{
+        background: `linear-gradient(135deg, #0a192f, #020c1b, #1c1f2f) `,
+      }}
+      >
+        Coming Soon...
+{/*         
           <div className="bg-blue-600 text-white p-4 rounded-t-xl flex justify-between items-center">
             <h3 className="m-0">🤖 Job Hunt Assistant</h3>
             <button
@@ -183,7 +191,7 @@ function ChatBot({ onFiltersSuggested, onJobsMatched, currentFilters }) {
             >
               Send
             </button>
-          </form>
+          </form> */}
         </div>
       )}
     </>
