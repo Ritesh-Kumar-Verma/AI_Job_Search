@@ -41,9 +41,8 @@ export const jobsAPI = {
   fetch: (search, location) =>
     apiClient.post('/jobs/fetch', { search, location }),
   getFiltered: async (filters) =>{
-
     const res = await apiClient.get('/jobs', { params: filters })
-    console.log(res)
+    // console.log(res)
     return res
   },
   getJob: (jobId) =>

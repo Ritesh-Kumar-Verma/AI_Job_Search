@@ -480,6 +480,8 @@ function JobFeed({ externalFilters, onFiltersChange }) {
                   <div className="font-medium text-lg text-white">{job.title} </div>
                   <div className="text-gray-300">{job.company}</div>
                   <div className="text-gray-300">📍 {job.location}</div>
+                  
+                  <div className="text-gray-300">{job.description}</div>
                   <div className="text-gray-300 text-sm mt-1">
                     Posted {getTimePosted(job.postedDate)}
                   </div>
