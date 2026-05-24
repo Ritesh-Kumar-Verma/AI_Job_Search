@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { jobsAPI, applicationsAPI } from "../services/api";
-
+import Loading from "../components/Loading"
 function JobFeed({ externalFilters, onFiltersChange }) {
   const [jobs, setJobs] = useState([]);
   const [bestMatches, setBestMatches] = useState([]);
@@ -407,40 +407,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
           </div>
         </div>
 
-        {/* Skills */}
-        {/* <div className="mb-4">
-          <label className="block font-semibold mb-2  text-xl text-white">
-            💡 Skills
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {filterOptions?.skills?.slice(0, 12).map((skill) => {
-              const selected = filters.skills.includes(skill);
-              return (
-                <button
-                  key={skill}
-                  onClick={() => {
-                    const newSkills = selected
-                      ? filters.skills.filter((s) => s !== skill)
-                      : [...filters.skills, skill];
-                    handleFilterChange("skills", newSkills);
-                  }}
-                  className={`px-3 py-1 rounded-full border transition ${
-                    selected
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-blue-300 hover:border-blue-400 "
-                  }`}
-                >
-                  {skill}
-                </button>
-              );
-            })}
-          </div>
-          {filters.skills.length > 0 && (
-            <p className="mt-1 text-gray-300 text-md">
-              Selected: {filters.skills.join(", ")}
-            </p>
-          )}
-        </div> */}
+       
 
         {/* Filter Buttons */}
         <div className="flex gap-2">
@@ -461,7 +428,8 @@ function JobFeed({ externalFilters, onFiltersChange }) {
 
       {/* Jobs List */}
       {loading ? (
-        <div className="text-center py-8 text-white">Loading jobs...</div>
+        // <div className="text-center py-8 text-white">Loading jobs...</div>
+        <Loading/>
       ) : jobs.length === 0 ? (
         <div className="text-center py-8 text-gray-500">
           <p className="text-lg">😔 No jobs found matching your filters.</p>

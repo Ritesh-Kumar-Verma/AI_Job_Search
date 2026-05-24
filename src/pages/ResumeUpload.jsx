@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { resumeAPI } from '../services/api';
+import Loading from '../components/Loading';
 
 function ResumeUpload() {
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loadingResume , setLoadingResume] = useState(false)
   const [uploadedResume, setUploadedResume] = useState(null);
 
   useEffect(() => {
@@ -14,9 +16,13 @@ function ResumeUpload() {
 
   const loadResume = async () => {
     try {
+      setLoadingResume(true)
       const res = await resumeAPI.get();
       setUploadedResume(res.data);
-    } catch (err) {}
+      setLoadingResume(false)
+    } catch (err) {
+      setLoadingResume(false)
+    }
   };
 
   const handleFileChange = (e) => {
@@ -61,6 +67,7 @@ function ResumeUpload() {
         <p className="text-gray-400 mb-8">
           Upload a PDF or text file. We'll extract skills and match you with relevant jobs.
         </p>
+        {loadingResume && <Loading text='Checking for Resume...' />}
 
         {uploadedResume && (
           <div className="bg-green-100 p-4 rounded mb-8">
