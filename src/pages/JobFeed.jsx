@@ -500,7 +500,7 @@ function JobFeed({ externalFilters, onFiltersChange }) {
                 </div>
               )}
 
-              <div className="flex lg:w-2/5 gap-2 max-w-80  mt-4">
+              <div className="flex lg:w-2/5 gap-2 max-w-130  mt-4">
                 <button
                   onClick={() => handleApply(job)}
                   disabled={appliedJobs.has(job.jobId || job.externalId)}
@@ -522,6 +522,15 @@ function JobFeed({ externalFilters, onFiltersChange }) {
                 >
                   🌐 View on Site
                 </a>
+                <a
+                  href={"https://ai-resume-optimizer-rv.streamlit.app/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2 rounded border border-blue-600 text-blue-600 hover:bg-blue-50 text-center transition"
+                >
+                  🌐 Optimize Resume
+                </a>
+
               </div>
 
 
